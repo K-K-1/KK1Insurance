@@ -27,7 +27,8 @@ const claimSchema = new mongoose.Schema({
       death_approval:String ,
       zipcode: String,
       cause: String,
-      death_time_approval: String
+      death_time_approval: String,
+      gender: String
 
     }],
     beneficiary: [{
@@ -72,9 +73,18 @@ app.get('/insurance',(req,res) => {
 app.get('/funeral',(req,res) => {
   res.render('funeralHD')
 });
-app.get('/Benificiary',(req,res) => {
-  res.render('Beneficiary')
+
+
+
+app.get('/benificiary',(req,res) => {
+  let ssn = req.query.ssn;
+  claimModel.findOne({ "hospital.ssn": ssn}, function (err, doc){
+    res.render('Beneficiary',{doc: doc});
+  });
 });
+
+
+
 app.get('/Health',(req,res) => {
   res.render('HealthDep')
 });
@@ -106,7 +116,8 @@ app.post('/transaction',(req,res) => {
       'death_approval': req.body.deathapproval,
       'zipcode': req.body.zipcode,
       'cause': req.body.cause,
-      'death_time_approval': req.body.deathtimeapproval
+      'death_time_approval': req.body.deathtimeapproval,
+      'gender': req.body.gender
     }
   };
   const metaData = {'hospital_name': 'ABCD Hospital'};
@@ -145,8 +156,10 @@ app.post('/transaction',(req,res) => {
 
 let dbInsert = (txCreatePatientDataSigned) => {
   console.log('inside fb insert');
-  console.log(txCreatePatientDataSigned.asset.data.patient_id.patient_id);
+  console.log(txCreatePatientDataSigned.id);
+  console.log(txCreatePatientDataSigned.asset.data.patient_id.gender);
   var txn = new claimModel({
+    txnid: txCreatePatientDataSigned.id,
     hospital : [{
       patient_id: txCreatePatientDataSigned.asset.data.patient_id.patient_id,
       adress_1: txCreatePatientDataSigned.asset.data.patient_id.adress_1,
@@ -162,19 +175,53 @@ let dbInsert = (txCreatePatientDataSigned) => {
       death_approval: txCreatePatientDataSigned.asset.data.patient_id.death_approval,
       zipcode: txCreatePatientDataSigned.asset.data.patient_id.zipcode,
       cause: txCreatePatientDataSigned.asset.data.patient_id.cause,
-      death_time_approval: txCreatePatientDataSigned.asset.data.patient_id.death_time_approval
+      death_time_approval: txCreatePatientDataSigned.asset.data.patient_id.death_time_approval,
+      gender: txCreatePatientDataSigned.asset.data.patient_id.gender
     }]
   });
-
-  console.log('hello');
   txn.save().then(function (doc) {
 
-            console.log('MongoDB Values');
-            console.log('----------------------------------------');
            console.log(doc);
        }, function (e) {
            console.log(e)
        });
-}
+};
+app.post('/bentransaction', (req,res) => {
+
+  var bentxn = new claimModel({
+    beneficiary : [{
+      ssn: req.body.ssn,
+      insured_name: req.body.insured_name,
+      policy_number: req.body.policy_number,
+      cause: req.body.cause,
+      beneficiary_name: req.body.beneficiary_name,
+      relation: req.body.relation,
+      beneficiary_ssn: req.body.beneficiary_ssn,
+      bank_details: req.body.bank_details,
+      funeral_location: req.body.funeral_location,
+      funeral_date: req.body.funeral_date,
+      funeral_time: req.body.funeral_time
+
+    }]
+  });
+
+  bentxn.save().then(function (doc) {
+
+           res.send(doc);
+       }, function (e) {
+           console.log(e)
+       });
+
+});
+
+
+
+app.get('/ssn',(req,res) => {
+  res.render('ssn',{'navigation':'/benificiary'});
+});
+
+app.get('/ssn2',(req,res) => {
+  res.render('ssn',{'navigation':'/funeral'});
+});
 
 app.listen(port);
