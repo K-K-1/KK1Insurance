@@ -159,17 +159,17 @@ $("#hospitalForm").submit(function(e) {
              document.getElementById('resPatientName').innerHTML = 'Address 1 : ' + data.asset.data.patient_id.adress_1;
              document.getElementById('resDOB').innerHTML = 'SSN : ' + data.asset.data.patient_id.ssn;
              document.getElementById('resGender').innerHTML = 'Doctor : ' + data.asset.data.patient_id.doctor;
-             document.getElementById('resAddress1').innerHTML = 'ID : ' + data.asset.data.patient_id.insured_name;
-             document.getElementById('resAddress2').innerHTML = 'ID : ' + data.asset.data.patient_id.adress2;
-             document.getElementById('resState').innerHTML = 'ID : ' + data.asset.data.patient_id.death_date;
-             document.getElementById('resZipCode').innerHTML = 'ID : ' + data.asset.data.patient_id.doctor_number;
-             document.getElementById('resSSN').innerHTML = 'ID : ' + data.asset.data.patient_id.birth_date;
-             document.getElementById('resDeathDate').innerHTML = 'ID : ' + data.asset.data.patient_id.state;
-             document.getElementById('resTimeOfDeath').innerHTML = 'ID : ' + data.asset.data.patient_id.death_time;
-             document.getElementById('resCause').innerHTML = 'ID : ' + data.asset.data.patient_id.death_approval;
-             document.getElementById('resDoctor').innerHTML = 'ID : ' + data.asset.data.patient_id.zipcode;
-             document.getElementById('resDocReg').innerHTML = 'ID : ' + data.asset.data.patient_id.cause;
-             document.getElementById('resDeathDate').innerHTML = 'ID : ' + data.asset.data.patient_id.death_time_approval;
+             document.getElementById('resAddress1').innerHTML = 'Insured Name : ' + data.asset.data.patient_id.insured_name;
+             document.getElementById('resAddress2').innerHTML = 'Address 2 : ' + data.asset.data.patient_id.adress2;
+             document.getElementById('resState').innerHTML = 'Date of Death: ' + data.asset.data.patient_id.death_date;
+             document.getElementById('resZipCode').innerHTML = 'Doctor Number : ' + data.asset.data.patient_id.doctor_number;
+             document.getElementById('resSSN').innerHTML = 'Birth Date : ' + data.asset.data.patient_id.birth_date;
+             document.getElementById('resDeathDate').innerHTML = 'State : ' + data.asset.data.patient_id.state;
+             document.getElementById('resTimeOfDeath').innerHTML = 'Time of Death : ' + data.asset.data.patient_id.death_time;
+             document.getElementById('resCause').innerHTML = 'Death Approval : ' + data.asset.data.patient_id.death_approval;
+             document.getElementById('resDoctor').innerHTML = 'Zipcode : ' + data.asset.data.patient_id.zipcode;
+             document.getElementById('resDocReg').innerHTML = 'Cause : ' + data.asset.data.patient_id.cause;
+             document.getElementById('resDeathDate').innerHTML = 'Time of Death Approval : ' + data.asset.data.patient_id.death_time_approval;
 
 
              document.getElementById('blockShow').style.visibility = 'visible';

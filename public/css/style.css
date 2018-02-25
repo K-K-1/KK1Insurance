@@ -47,3 +47,12 @@ html {
 .is-horizontal-center {
   justify-content: center;
 }
+
+.titlename{
+    margin-top: 100px;
+    font-size: 43px;
+    font-weight: bold;
+    font-family: unset;
+    border: 1px solid #d0cdcd;
+    padding: 10px;
+}
